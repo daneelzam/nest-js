@@ -6,8 +6,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { AppService } from './app.service';
-import { articles } from './articles';
-import {Article} from "./article.model";
+import { Article } from "./article.model";
 
 @Controller()
 export class AppController {
@@ -15,14 +14,17 @@ export class AppController {
 
   @Get()
   @Render('index')
-  index() {
-    return { articles };
+  async index() {
+    return {
+      articles: await Article.find()
+    };
   }
 
   @Get('articles/:id')
   @Render('article')
-  getById(@Param('id', ParseIntPipe) id: number) {
-    return articles.find(article => article.id === id);
+  async getById(@Param('id', ParseIntPipe) id: number) {
+    const article = await Article.findOne({ id });
+    return article;
   }
 
   @Get('create')
@@ -33,9 +35,8 @@ export class AppController {
 
   @Post('articles')
   @Redirect('/', 301)
-  create(@Body() body: any): void {
-    const id = articles.length + 1;
-    const newArticle = new Article(body.title, body.content, id);
-    articles.push(newArticle);
+  async create(@Body() body: any): Promise<void> {
+    const newArticle = new Article(body.title, body.content);
+    await newArticle.save();
   }
 }
