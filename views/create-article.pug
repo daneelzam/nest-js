@@ -1,0 +1,10 @@
+doctype html
+html
+    head
+        title New article
+    body
+        h1 New article
+        form(method="POST" action="/articles")
+            input(type="text" name="title")
+            input(type="text" name="content")
+            button(type="submit") Create

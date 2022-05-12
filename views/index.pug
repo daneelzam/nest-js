@@ -8,5 +8,6 @@ html(lang="en")
     body
         h1 Welcome to SuperBlog
         ul
-            each a in articles
-                li #{a.title} <a href=#{a.id}>Read</a>
+            each article in articles
+                li #{article.title} <a href=articles/#{article.id}>Read</a>
+            a(href="create") Create new article
