@@ -2,7 +2,8 @@
   "name": "nest-js",
   "version": "0.0.1",
   "engines": {
-    "node": "16.x"
+    "node": "16.10.0",
+    "npm": "v8.10.0",
   },
   "description": "",
   "author": "",
